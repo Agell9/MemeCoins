@@ -352,3 +352,72 @@ Meme coins are inherently volatile, but this volatility presents an opportunity:
 - Coins like DOGE, SHIB, and BONK exhibit sharp price swings, allowing traders to capitalize on short-term upward movements.
 - Their strong correlation amplifies gains when multiple coins move together.
 - When DOGE increases, SHIB tends to increase by an average of 2.16 timesThis amplification effect allows traders to maximize profits while managing risk.
+
+# Impact Analysis 
+The impact analysis quantifies how price movements of one meme coin influence others based on historical price changes. The analysis focuses on DOGE, SHIB, and BONK . 
+
+```ruby
+# Load the dataset
+combined_df = pd.read_csv("meme_coins_daily_cleaned_set2.csv", index_col="Timestamp", parse_dates=True)
+
+
+
+# Filter only the selected coins: DOGE, SHIB, BONK
+selected_coins = ["DOGE", "SHIB", "BONK"]
+combined_df = combined_df[selected_coins]
+
+# Calculate the correlation matrix
+correlation_matrix = combined_df.corr()
+
+# Display the correlation matrix in a clear format
+print("Correlation Table Between Selected Meme Coins (DOGE, SHIB, BONK):")
+print(correlation_matrix)
+
+# Identify the top correlated pairs (correlation > 0.7)
+threshold = 0.7
+high_correlation_pairs = []
+
+for coin1 in correlation_matrix.columns:
+    for coin2 in correlation_matrix.columns:
+        if coin1 != coin2 and correlation_matrix.loc[coin1, coin2] > threshold:
+            high_correlation_pairs.append((coin1, coin2, correlation_matrix.loc[coin1, coin2]))
+
+# Display the most correlated pairs
+print("\nHighly Correlated Pairs (Correlation > 0.7):")
+for pair in high_correlation_pairs:
+    print(f"{pair[0]} and {pair[1]}: Correlation = {pair[2]:.2f}")
+
+# Analyze how much one coin's price increase affects the other (percentage change impact)
+print("\nImpact Analysis: How Much One Coin's Price Increase Affects Others")
+
+# Calculate percentage change for all selected coins
+percentage_changes = combined_df.pct_change().dropna()
+
+# Compute the average impact of each coin on others
+for coin1, coin2, _ in high_correlation_pairs:
+    # Calculate the average ratio of price changes between the two coins
+    avg_impact = (percentage_changes[coin2] / percentage_changes[coin1]).mean()
+    print(f"When {coin1} increases by 1 unit, {coin2} changes on average by {avg_impact:.6f} units.")
+ 
+
+
+```
+<img width="353" alt="Image" src="https://github.com/user-attachments/assets/9daac040-00a6-4055-b613-6d883f5b3bbd" />
+
+## DOGE 
+- When DOGE increases by 1 unit,
+- SHIB increases on average by 2.16 units.
+- BONK increases on average by 2.29 units.
+DOGE has a strong positive influence on both SHIB and BONK,
+
+## SHIB 
+- When SHIB increases by 1 unit,
+- DOGE increases on average by 0.24 units.
+- BONK increases on average by 1.22 units.
+SHIB has a more pronounced effect on BONK compared to DOGE, suggesting a closer relationship between SHIB and BONK.
+
+## BONK 
+- When BONK increases by 1 unit,
+- DOGE increases on average by 0.64 units.
+- SHIB increases on average by 0.13 units.
+BONK's influence on the other two coins is weaker but still noticeable, with DOGE responding more strongly than SHIB.
