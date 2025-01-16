@@ -327,3 +327,28 @@ plt.show()
 ```
 
 <img width="678" alt="Image" src="https://github.com/user-attachments/assets/19e0e576-052c-4927-b39d-2e68807f3724" />
+
+# Selected Coins For Strategy 
+
+## DOGE: The First and Most Well-Known Meme Coin
+- Dogecoin (DOGE) was the first meme coin ever created, launched in 2013 as a parody of Bitcoin.
+- Its position as the original meme coin makes it the most recognizable and well-known in the market.
+- Due to its long-standing history and strong community backing, DOGE often acts as a leading indicator for other meme coins.
+
+## SHIB and BONK: High Liquidity and Market Influence
+- Shiba Inu (SHIB): Often referred to as the "DOGE killer," SHIB has grown into one of the most traded meme coins, with a massive community and significant liquidity.
+- BONK: A newer meme coin that has gained rapid popularity, showing high volatility and correlation with established coins like DOGE and SHIB.
+
+### Strong Correlations
+The analysis revealed that DOGE, SHIB, and BONK exhibit exceptionally high correlations:
+
+- DOGE and SHIB: Correlation = 0.86
+- DOGE and BONK: Correlation = 0.83
+- SHIB and BONK: Correlation = 0.83
+
+### Volatility for Profit Potential
+Meme coins are inherently volatile, but this volatility presents an opportunity:
+
+- Coins like DOGE, SHIB, and BONK exhibit sharp price swings, allowing traders to capitalize on short-term upward movements.
+- Their strong correlation amplifies gains when multiple coins move together.
+- When DOGE increases, SHIB tends to increase by an average of 2.16 timesThis amplification effect allows traders to maximize profits while managing risk.
