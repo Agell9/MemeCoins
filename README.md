@@ -262,3 +262,68 @@ if __name__ == "__main__":
         print(f"\nData successfully saved to: {save_file_path}")
     else:
         print("No data fetched for any meme coins.")
+
+# Correlation Analysis 
+The analysis began by calculating the correlation matrix for the selected meme coins. A high correlation (greater than 0.7) indicates that the prices of two coins tend to move together, either positively or negatively. Below is the python script for all  the correlated coins and a normalized line graph. 
+
+```ruby
+# Read the uploaded CSV directly
+combined_df = pd.read_csv("meme_coins_daily_cleaned_set2.csv", index_col="Timestamp", parse_dates=True)
+correlation_matrix = combined_df.corr()
+
+# Display the correlation matrix in a clear format
+print("Correlation Table Between Meme Coins:")
+print(correlation_matrix)
+
+# Identify the top correlated pairs (correlation > 0.7 for example)
+threshold = 0.7
+high_correlation_pairs = []
+
+for coin1 in correlation_matrix.columns:
+    for coin2 in correlation_matrix.columns:
+        if coin1 != coin2 and correlation_matrix.loc[coin1, coin2] > threshold:
+            high_correlation_pairs.append((coin1, coin2, correlation_matrix.loc[coin1, coin2]))
+
+# Display the most correlated pairs
+print("\nHighly Correlated Pairs (Correlation > 0.7):")
+for pair in high_correlation_pairs:
+    print(f"{pair[0]} and {pair[1]}: Correlation = {pair[2]:.2f}")
+
+# Analyze how much one coin's price increase affects the other (percentage change impact)
+print("\nImpact Analysis: How Much One Coin's Price Increase Affects Others")
+
+# Calculate percentage change for all coins
+percentage_changes = combined_df.pct_change().dropna()
+
+# Compute the average impact of each coin on others
+for coin1, coin2, _ in high_correlation_pairs:
+    # Calculate the average ratio of price changes between the two coins
+    avg_impact = (percentage_changes[coin2] / percentage_changes[coin1]).mean()
+    print(f"When {coin1} increases, {coin2} changes on average by {avg_impact:.2f} times.")
+```
+<img width="354" alt="Image" src="https://github.com/user-attachments/assets/6f53a6af-f338-4abc-bf13-153dfdabeeac" />
+<img width="396" alt="Image" src="https://github.com/user-attachments/assets/c51cd96c-129b-4ae3-bdce-99b3ae7d53be" />
+
+### Visual 
+
+```ruby
+normalized_df = combined_df / combined_df.iloc[0] * 100  # Start at 100%
+
+# Plot the normalized line graph
+plt.figure(figsize=(12, 8))
+for coin in normalized_df.columns:
+    plt.plot(normalized_df.index, normalized_df[coin], label=coin)
+
+# Add labels, title, and legend
+plt.xlabel("Date")
+plt.ylabel("Normalized Price (%)")
+plt.title("Normalized Price Movements of Meme Coins Over Time")
+plt.legend()
+plt.grid(True)
+
+# Show the graph
+plt.show()
+
+```
+
+<img width="678" alt="Image" src="https://github.com/user-attachments/assets/19e0e576-052c-4927-b39d-2e68807f3724" />
